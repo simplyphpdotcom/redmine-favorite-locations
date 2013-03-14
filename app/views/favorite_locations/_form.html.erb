@@ -1,0 +1,14 @@
+<%= form_for(@location) do |f| %> 
+  <%= f.label :project_id %>
+  <%= f.select :project_id, options_from_collection_for_select(@visible_projects, 'id', 'name', :selected => @location.project_id) %><br />
+
+  <%= f.hidden_field :user_id, :value => @location.user_id %>
+
+  <%= f.label  :link_location %>
+  <%= f.select :link_location, FavoriteLocation::PROJECT_LOCATIONS.keys.map { |name| [name, name] }, { :selected => @location.link_location } %><br />
+
+  <%= f.label :link_text %>
+  <%= f.text_field :link_text, :value => @location.link_text %><br />
+
+  <%= f.submit %>
+<% end %> 
