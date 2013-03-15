@@ -25,7 +25,7 @@ Otherwise:
 $ bundle exec rake db:migrate\_plugins:favorite\_locations
 
 4. symlink or copy assets/javascripts/favorite\_locations/application.js to
-   redmine's public/javascripts folder
+   redmine's public/javascripts/favorite\_locations.js
 
 5. Restart your Redmine web server
 

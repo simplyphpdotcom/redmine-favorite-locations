@@ -11,7 +11,7 @@ class FavoriteLocationsViewHookListener < Redmine::Hook::ViewListener
     <div class="box favorite-locations-box" id="favorite-locations-box">
       <h3>Favorite Locations</h3>
       <div class="favorite-location-list"></div>
-      <div class="favorite-location-create">
+      <div class="favorite-location-create" style="margin-top: 20px;">
         #{link_to('New Location', {
           :controller => 'favorite_locations',
           :action => :new
