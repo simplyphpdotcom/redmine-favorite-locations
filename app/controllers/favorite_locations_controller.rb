@@ -44,6 +44,7 @@ class FavoriteLocationsController < ApplicationController
         # Otherwise the connection will forever be open because of Rails'
         # per-thread connection pool.
         ActiveRecord::Base.connection.disconnect!
+        ActiveRecord::Base.connection.close
       end
     end
     if @location.save
