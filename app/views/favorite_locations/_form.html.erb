@@ -1,14 +1,17 @@
-<%= form_for(@location) do |f| %> 
-  <%= f.label :project_id %>
-  <%= f.select :project_id, options_from_collection_for_select(@visible_projects, 'id', 'name', :selected => @location.project_id) %><br />
-
+<%= form_for(@location, :remote => true) do |f| %> 
   <%= f.hidden_field :user_id, :value => @location.user_id %>
 
-  <%= f.label  :link_location %>
-  <%= f.select :link_location, FavoriteLocation::PROJECT_LOCATIONS.keys.map { |name| [name, name] }, { :selected => @location.link_location } %><br />
+  <%= f.label :path %>
+  <%= f.text_field :link_path, :value => @location.link_path %>
 
-  <%= f.label :link_text %>
-  <%= f.text_field :link_text, :value => @location.link_text %><br />
+  <% if @location.page_title %>
+    <%= f.label :page_title  %>
+    <%= f.text_field :page_title, :value => @location.page_title %>
+  <% end %>
 
-  <%= f.submit %>
+  <% if @location.new_record? %>
+    <%= f.submit 'data-target' => '.new_favorite_location', 'data-insertion' => 'before' %>
+  <% else %>
+    <%= f.submit 'data-target' => ".favorite-location-#{@location.id}", 'data-insertion' => 'html' %>
+  <% end %>
 <% end %> 

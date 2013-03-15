@@ -1,10 +1,9 @@
 class CreateFavoriteLinkLocations < ActiveRecord::Migration
   def change
-    create_table :favorite_link_locations do |t|
+    create_table :favorite_link_locations, :force => true do |t|
       t.references :user
-      t.references :project
-      t.string :link_text
-      t.string :link_location
+      t.string :page_title
+      t.string :link_path
       t.timestamps
     end
   end

@@ -11,6 +11,5 @@ Redmine::Plugin.register :favorite_locations do
   url ''
   author_url ''
 
-  permission :favorite_locations, { :favorite_locations => [:index, :create, :update] }, :public => true
-  menu :admin_menu, :favorite_locations, { :controller => 'favorite_locations', :action => 'index' }
+  permission :favorite_locations, { :favorite_locations => [:index, :create, :update, :edit, :destroy] }, :public => true
 end
