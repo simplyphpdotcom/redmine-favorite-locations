@@ -34,9 +34,17 @@ class FavoriteLocationsController < ApplicationController
     @location = FavoriteLocation.new(params[:favorite_location]) do |loc|
       loc.user_id = User.current.id
     end
+    # Wait 3 seconds to scrape url in new thread because of problems w/
+    # threaded servers (WEBrick, thin, etc...) and scraping your own site.
+    # Don't join thread.
     Thread.new do
-      sleep 5
-      Mutex.new.synchronize { scrape_url }
+      sleep 3
+      Mutex.new.synchronize do
+        scrape_url
+        # Otherwise the connection will forever be open because of Rails'
+        # per-thread connection pool.
+        ActiveRecord::Base.connection.disconnect!
+      end
     end
     if @location.save
       render :json => {
@@ -89,8 +97,7 @@ class FavoriteLocationsController < ApplicationController
     end
     if html.present?
       title = Nokogiri.HTML(html).css('title').children[0].text
-      @location.page_title = title if title
-      @location.save
+      @location.update_attributes(:page_title => title) if title.present?
     end
   end
 

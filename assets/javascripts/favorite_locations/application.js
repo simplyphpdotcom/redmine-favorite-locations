@@ -23,7 +23,7 @@ $(function() {
       $(html).appendTo('.favorite-location-list');
     },
     error: function(data, textStatus, xhr) {
-      console.log('favorite location ajax error');
+      console.log('favorite locations index ajax error');
     }
   });
 
