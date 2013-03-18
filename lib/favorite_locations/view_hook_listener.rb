@@ -1,9 +1,20 @@
 class FavoriteLocationsViewHookListener < Redmine::Hook::ViewListener 
   require_dependency File.join(Rails.root, 'plugins/favorite_locations/app/models/favorite_location')
 
+  SHOW_FAVORITES_CONTROLLERS = %w(WikiController IssuesController)
+
   def view_welcome_index_right(context = {})
     output_js_bootstrap
   end
+
+  def view_layouts_base_body_bottom(context={})
+    return unless context[:controller]
+    if context[:controller].class.name.in?(SHOW_FAVORITES_CONTROLLERS)
+      view_favorite_locations_index
+    end
+  end
+
+  private
 
   def output_js_bootstrap
     html = <<-HTML.html_safe
@@ -23,4 +34,13 @@ class FavoriteLocationsViewHookListener < Redmine::Hook::ViewListener
     HTML
   end
 
+  def view_favorite_locations_index
+    html = <<-HTML.html_safe
+    #{javascript_include_tag('favorite_locations.js')}
+    <div class="box favorite-locations-box" id="favorite-locations-box">
+      <h3>Favorite Locations</h3>
+      <div class="favorite-location-list"></div>
+    </div>
+    HTML
+  end
 end 
