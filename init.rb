@@ -6,7 +6,7 @@ require_dependency File.expand_path(File.join(File.dirname(__FILE__), 'app/contr
 Redmine::Plugin.register :favorite_locations do
   name 'Favorite Locations plugin'
   author 'Luke Gruber'
-  description 'Easily navigate to your favorite places per project via the home page'
+  description 'Easily navigate to your most-accessed pages in Redmine'
   version '0.0.1'
   url ''
   author_url ''

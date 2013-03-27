@@ -8,6 +8,7 @@ class FavoriteLocationsController < ApplicationController
 
   def index
     @locations = FavoriteLocation.for_user(User.current)
+    @no_edit_favorite_locations = params[:no_edit_favorite_locations]
     render :json => {
       :action => :index,
       :html => render_to_string(:partial => 'index')

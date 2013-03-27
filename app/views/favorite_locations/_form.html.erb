@@ -2,12 +2,10 @@
   <%= f.hidden_field :user_id, :value => @location.user_id %>
 
   <%= f.label :path %>
-  <%= f.text_field :link_path, :value => @location.link_path %>
+  <%= f.text_field :link_path, :value => @location.link_path, :placeholder => "start with '/'" %>
 
-  <% if @location.page_title %>
-    <%= f.label :page_title  %>
-    <%= f.text_field :page_title, :value => @location.page_title %>
-  <% end %>
+  <%= f.label :page_title, 'display'  %>
+  <%= f.text_field :page_title, :value => @location.page_title, :placeholder => 'optional' %>
 
   <% if @location.new_record? %>
     <%= f.submit 'data-target' => '.new_favorite_location', 'data-insertion' => 'before' %>

@@ -17,7 +17,7 @@ class FavoriteLocation < ActiveRecord::Base
   end
 
   def page_title
-    read_attribute(:page_title) || link_path
+    read_attribute(:page_title).presence || link_path
   end
 
   # prepend '/' to link_path

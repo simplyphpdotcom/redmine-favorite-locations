@@ -3,7 +3,9 @@
     <a href="<%= loc.link_path %>">
       <%= loc.page_title %>
     </a>
-    <%= link_to 'Edit', { :controller => 'favorite_locations', :action => :edit, :id => loc.id }, :remote => true, :'data-target' => ".favorite-location-#{loc.id}", 'data-insertion' => 'html', :style => 'margin-left: 20px;' %>
-    <%= link_to 'Delete', { :controller => 'favorite_locations', :action => :destroy, :id => loc.id }, :method => :delete, :remote => true, :'data-target' => ".favorite-location-#{loc.id}", :'data-insertion' => 'remove' %>
+    <% unless @no_edit_favorite_locations %>
+      <%= link_to 'Edit', { :controller => 'favorite_locations', :action => :edit, :id => loc.id }, :remote => true, :'data-target' => ".favorite-location-#{loc.id}", 'data-insertion' => 'html', :style => 'margin-left: 20px;' %>
+      <%= link_to 'Delete', { :controller => 'favorite_locations', :action => :destroy, :id => loc.id }, :method => :delete, :remote => true, :'data-target' => ".favorite-location-#{loc.id}", :'data-insertion' => 'remove' %>
+    <% end %>
   </div>
 <% end %>

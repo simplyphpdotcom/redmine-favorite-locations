@@ -9,6 +9,10 @@ $(function() {
     if (!$target) return false;
     insertionMethod = $clicked.data("insertion") || 'append';
     $target[insertionMethod](data.html);
+    if ( $(evt.currentTarget).hasClass('new_favorite_location') ) {
+      $('#favorite_location_link_path').val('');
+      $('#favorite_location_page_title').val('');
+    }
   }
 
  $('#favorite-locations-box').on("ajax:success", "a[data-remote]", ajaxHandler);
@@ -18,6 +22,9 @@ $(function() {
   $.ajax({
     url: '/favorite_locations',
     dataType: 'json',
+    data: {
+      no_edit_favorite_locations: window.favoriteLocationsNoEdit
+    },
     success: function(data, textStatus, xhr) {
       var html = data.html;
       $(html).appendTo('.favorite-location-list');

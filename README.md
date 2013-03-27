@@ -31,6 +31,9 @@ APP ROOT:
 4. symlink or copy assets/javascripts/favorite\_locations/application.js to
    redmine's public/javascripts/favorite\_locations.js
 
-5. Restart your Redmine web server
+5. symlink or copy assets/stylesheets/favorite\_locations/application.css to
+   redmine's public/stylesheets/favorite\_locations.css
+
+6. Restart your Redmine web server
 
 Plugin **should** work now.
