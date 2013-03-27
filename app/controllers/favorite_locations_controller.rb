@@ -97,7 +97,7 @@ class FavoriteLocationsController < ApplicationController
         cookie = Mechanize::Cookie.new(key, val)
         cookie.domain = request.domain
         cookie.path = '/'
-        agent.cookie_jar.add(URI.parse('http://localhost'), cookie)
+        agent.cookie_jar.add(URI.parse("#{request.scheme}://#{request.host}"), cookie)
       end
       page = agent.get(url)
     rescue => e
