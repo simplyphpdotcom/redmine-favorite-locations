@@ -27,6 +27,7 @@ class FavoriteLocationsViewHookListener < Redmine::Hook::ViewListener
   private
 
   def favorite_locations_index_form
+    return '' if User.current.anonymous?
     html = <<-HTML.html_safe
     #{javascript_include_tag('favorite_locations.js')}
     <div class="box favorite-locations-box" id="favorite-locations-box">
@@ -45,6 +46,7 @@ class FavoriteLocationsViewHookListener < Redmine::Hook::ViewListener
   end
 
   def favorite_locations_index
+    return '' if User.current.anonymous?
     html = <<-HTML.html_safe
     #{no_edit_favorite_locations_js}
     #{javascript_include_tag('favorite_locations.js')}

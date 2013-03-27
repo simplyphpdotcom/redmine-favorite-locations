@@ -26,7 +26,7 @@ APP ROOT:
 
 3. Run the plugin migrations:
 
-        $ bundle exec rake db:migrate_plugins:favorite_locations
+        $ bundle exec rake redmine:plugins:migrate NAME=favorite_locations RAILS_ENV=production
 
 4. symlink or copy assets/javascripts/favorite\_locations/application.js to
    redmine's public/javascripts/favorite\_locations.js
