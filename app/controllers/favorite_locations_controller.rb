@@ -32,17 +32,17 @@ class FavoriteLocationsController < ApplicationController
   end
 
   def create
-    @location = FavoriteLocation.new(params[:favorite_location]) do |loc|
+    @location = FavoriteLocation.new(params[:favorite_location].except(:user_id)) do |loc|
       loc.user_id = User.current.id
     end
     if @location.save
       if params[:favorite_location][:page_title].blank?
-        Thread.abort_on_exception = true
-        Thread.new do
-          sleep 3
+        # non-threaded server
+        if defined?(Unicorn)
           scrape_url
-          ActiveRecord::Base.connection.disconnect!
-          ActiveRecord::Base.connection.close
+        # guessing that it's threaded
+        else
+          new_thread { scrape_url }
         end
       end
       render :json => {
@@ -63,7 +63,7 @@ class FavoriteLocationsController < ApplicationController
   end
 
   def update
-    if @location.update_attributes(params[:favorite_location])
+    if @location.update_attributes(params[:favorite_location].except(:user_id))
       render :json => {
         :action => :update,
         :html => render_to_string(:partial => 'show')
@@ -88,19 +88,31 @@ class FavoriteLocationsController < ApplicationController
     render :json => {}
   end
 
+  def new_thread
+    Thread.new do
+      sleep 3
+      yield
+      ActiveRecord::Base.connection.disconnect!
+      ActiveRecord::Base.connection.close
+    end
+  end
+
   def scrape_url
     begin
       url = File.join("#{request.scheme}://#{request.host}:#{request.port}/", @location.link_path)
       logger.info "URL: #{url}"
       agent = Mechanize.new
+      agent.redirect_ok = false
+      cookie_uri = URI.parse("#{request.scheme}://#{request.host}")
       request.cookie_jar.to_a.each do |(key, val)|
         cookie = Mechanize::Cookie.new(key, val)
-        cookie.domain = request.domain
+        cookie.domain = ".#{request.domain}"
         cookie.path = '/'
-        agent.cookie_jar.add(URI.parse("#{request.scheme}://#{request.host}"), cookie)
+        agent.cookie_jar.add(cookie_uri, cookie)
       end
       page = agent.get(url)
     rescue => e
+      logger.error e
       page = nil
     end
     if page.present? && page.title.present?
