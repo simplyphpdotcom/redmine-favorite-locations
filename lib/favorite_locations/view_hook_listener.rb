@@ -9,7 +9,7 @@ class FavoriteLocationsViewHookListener < Redmine::Hook::ViewListener
     stylesheet_link_tag 'favorite_locations', :media => 'screen'
   end
 
-  def view_layouts_base_body_bottom(context = {})
+  def view_layouts_base_sidebar(context = {})
     return unless context[:controller]
     if context[:controller].class.name == 'WikiController'
       favorite_locations_index
