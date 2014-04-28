@@ -3,7 +3,7 @@ class CreateFavoriteLinkLocations < ActiveRecord::Migration
     create_table :favorite_link_locations, :force => true do |t|
       t.references :user
       t.string :page_title
-      t.string :link_path
+      t.text :link_path
       t.timestamps
     end
   end
