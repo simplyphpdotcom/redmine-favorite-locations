@@ -43,12 +43,4 @@ APP ROOT:
 
         $ bundle exec rake redmine:plugins:migrate NAME=favorite_locations RAILS_ENV=production
 
-5. symlink or copy assets/javascripts/favorite\_locations/application.js to
-   redmine's public/javascripts/favorite\_locations.js
-
-6. symlink or copy assets/stylesheets/favorite\_locations/application.css to
-   redmine's public/stylesheets/favorite\_locations.css
-
-7. Restart your Redmine web server
-
 Plugin **should** work now.

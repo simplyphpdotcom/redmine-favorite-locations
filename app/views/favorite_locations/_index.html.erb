@@ -1,6 +1,6 @@
 <% @locations.each do |loc| %>
   <div class="favorite-location-<%= loc.id %>" style="margin-bottom: 10px;">
-    <a href="<%= loc.link_path %>">
+    <a href="<%= File.join(url_for(:controller => 'welcome'), loc.link_path) %>">
       <%= loc.page_title %>
     </a>
     <% unless @no_edit_favorite_locations %>

@@ -20,7 +20,7 @@ $(function() {
 
   // pre-populate the favorite locations from index action
   $.ajax({
-    url: '/favorite_locations',
+    url: BASE_URL + 'favorite_locations',
     dataType: 'json',
     data: {
       no_edit_favorite_locations: window.favoriteLocationsNoEdit
