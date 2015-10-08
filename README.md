@@ -44,3 +44,8 @@ APP ROOT:
         $ bundle exec rake redmine:plugins:migrate NAME=favorite_locations RAILS_ENV=production
 
 Plugin **should** work now.
+
+Screenshots
+-----------
+
+![Favorite Locations in welcome page](http://i.imgur.com/lgcYTAo.jpg)
